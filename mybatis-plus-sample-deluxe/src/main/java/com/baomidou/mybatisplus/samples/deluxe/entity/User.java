@@ -31,7 +31,7 @@ public class User {
     private Integer version;
 
     @TableLogic(value = "0", delval = "1")
-    @TableField(select = false)
+    @TableField
     private Integer deleted;
 
     @TableField(value = "create_time", fill = FieldFill.INSERT)

@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.core.metadata.TableInfo;
 import com.baomidou.mybatisplus.samples.deluxe.methods.DeleteAll;
 import com.baomidou.mybatisplus.samples.deluxe.methods.MyInsertAll;
 import com.baomidou.mybatisplus.samples.deluxe.methods.MysqlInsertAllBatch;
+import com.baomidou.mybatisplus.samples.deluxe.methods.SelectListIgnoreDeleted;
 
 /**
  * 自定义 SqlInjector
@@ -21,7 +22,6 @@ public class MyLogicSqlInjector extends DefaultSqlInjector {
     /**
      * 如果只需增加方法，保留MP自带方法
      * 可以super.getMethodList() 再add
-     * @return
      */
     @Override
     public List<AbstractMethod> getMethodList(Class<?> mapperClass, TableInfo tableInfo) {
@@ -30,6 +30,7 @@ public class MyLogicSqlInjector extends DefaultSqlInjector {
         methodList.add(new MyInsertAll());
         methodList.add(new MysqlInsertAllBatch());
         methodList.add(new SelectById());
+        methodList.add(new SelectListIgnoreDeleted());
         return methodList;
     }
 }

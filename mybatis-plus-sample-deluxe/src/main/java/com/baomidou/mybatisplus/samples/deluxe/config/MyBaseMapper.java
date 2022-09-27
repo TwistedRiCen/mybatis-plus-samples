@@ -2,6 +2,8 @@ package com.baomidou.mybatisplus.samples.deluxe.config;
 
 import java.util.List;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.toolkit.Constants;
 import org.apache.ibatis.annotations.Param;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -26,4 +28,12 @@ public interface MyBaseMapper<T> extends BaseMapper<T> {
      * @return
      */
     int mysqlInsertAllBatch(@Param("list") List<T> batchList);
+
+    /**
+     * 根据 entity 条件，查询全部记录（包含被逻辑删除的数据）
+     *
+     * @param queryWrapper 实体对象封装操作类（可以为 null）
+     */
+    List<T> selectListIgnoreDeleted(@Param(Constants.WRAPPER) Wrapper<T> queryWrapper);
+
 }
