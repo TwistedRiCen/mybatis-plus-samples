@@ -5,9 +5,9 @@ import com.baomidou.samples.injector.mapper.StudentMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.annotation.Resource;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,19 +20,19 @@ import java.util.stream.Collectors;
 @SpringBootTest
 public class InjectorTest {
 
-    @Resource
+    @Autowired
     private StudentMapper studentMapper;
 
     @Test
     public void test() {
-        log.error("--------------------------------------insert-------------------------------------------------------");
+        log.info("--------------------------------------insert-------------------------------------------------------");
         List<Long> ids = Lists.newArrayList();
         for (int i = 0; i < 2; i++) {
             Student student = new Student("小明" + i + "号", i);
             studentMapper.insert(student);
             ids.add(student.getId());
         }
-        log.error("--------------------------------------insertBatchSomeColumn-------------------------------------------------------");
+        log.info("--------------------------------------insertBatchSomeColumn-------------------------------------------------------");
         List<Student> ss = Lists.newArrayList();
         for (int i = 2; i < 20; i++) {
             Student student = new Student("小明" + i + "号", i);
@@ -44,7 +44,7 @@ public class InjectorTest {
         Student select = studentMapper.select("select * from student where id = " + ids.get(0));
         System.out.println(select);
 
-        log.error("--------------------------------------deleteAll-------------------------------------------------------");
+        log.info("--------------------------------------deleteAll-------------------------------------------------------");
         studentMapper.deleteAll();
     }
 }

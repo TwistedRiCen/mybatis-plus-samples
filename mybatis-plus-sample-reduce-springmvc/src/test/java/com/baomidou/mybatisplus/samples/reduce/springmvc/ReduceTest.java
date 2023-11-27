@@ -11,17 +11,18 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
+@Sql(scripts = {"classpath:db/schema-h2.sql","classpath:db/data-h2.sql"})
 @ContextConfiguration(locations = {"classpath*:spring.xml"})
 public class ReduceTest {
     @Autowired
     ApplicationContext context;
-    @Resource
+    @Autowired
     private UserMapper userMapper;
 
     @Test

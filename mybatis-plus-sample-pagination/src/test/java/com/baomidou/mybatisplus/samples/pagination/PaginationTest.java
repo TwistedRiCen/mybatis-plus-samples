@@ -1,18 +1,5 @@
 package com.baomidou.mybatisplus.samples.pagination;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.List;
-
-import javax.annotation.Resource;
-
-import org.apache.ibatis.session.RowBounds;
-import org.assertj.core.util.Maps;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.util.CollectionUtils;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -27,8 +14,17 @@ import com.baomidou.mybatisplus.samples.pagination.model.MyPage;
 import com.baomidou.mybatisplus.samples.pagination.model.ParamSome;
 import com.baomidou.mybatisplus.samples.pagination.model.UserChildren;
 import com.baomidou.mybatisplus.samples.pagination.service.IUserService;
-
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.session.RowBounds;
+import org.assertj.core.util.Maps;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.util.CollectionUtils;
+
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author miemie
@@ -38,7 +34,7 @@ import lombok.extern.slf4j.Slf4j;
 @SpringBootTest
 class PaginationTest {
 
-    @Resource
+    @Autowired
     private UserMapper mapper;
 
     @Test
@@ -51,18 +47,18 @@ class PaginationTest {
 
     @Test
     void tests1() {
-        log.error("----------------------------------baseMapper 自带分页-------------------------------------------------------");
+        log.info("----------------------------------baseMapper 自带分页-------------------------------------------------------");
         Page<User> page = new Page<>(1, 5);
         page.addOrder(OrderItem.asc("age"));
         Page<User> userIPage = mapper.selectPage(page, Wrappers.<User>lambdaQuery().eq(User::getAge, 20).like(User::getName, "Jack"));
         assertThat(page).isSameAs(userIPage);
-        log.error("总条数 -------------> {}", userIPage.getTotal());
-        log.error("当前页数 -------------> {}", userIPage.getCurrent());
-        log.error("当前每页显示数 -------------> {}", userIPage.getSize());
+        log.info("总条数 -------------> {}", userIPage.getTotal());
+        log.info("当前页数 -------------> {}", userIPage.getCurrent());
+        log.info("当前每页显示数 -------------> {}", userIPage.getSize());
         List<User> records = userIPage.getRecords();
         assertThat(records).isNotEmpty();
 
-        log.error("----------------------------------json 正反序列化-------------------------------------------------------");
+        log.info("----------------------------------json 正反序列化-------------------------------------------------------");
         String json = JSON.toJSONString(page);
         log.info("json ----------> {}", json);
         Page<User> page1 = JSON.parseObject(json, new TypeReference<Page<User>>() {
@@ -71,14 +67,14 @@ class PaginationTest {
         assertThat(records1).isNotEmpty();
         assertThat(records1.get(0).getClass()).isEqualTo(User.class);
 
-        log.error("----------------------------------自定义 XML 分页-------------------------------------------------------");
+        log.info("----------------------------------自定义 XML 分页-------------------------------------------------------");
         MyPage<User> myPage = new MyPage<User>(1, 5).setSelectInt(20).setSelectStr("Jack");
         ParamSome paramSome = new ParamSome(20, "Jack");
         MyPage<User> userMyPage = mapper.mySelectPage(myPage, paramSome);
         assertThat(myPage).isSameAs(userMyPage);
-        log.error("总条数 -------------> {}", userMyPage.getTotal());
-        log.error("当前页数 -------------> {}", userMyPage.getCurrent());
-        log.error("当前每页显示数 -------------> {}", userMyPage.getSize());
+        log.info("总条数 -------------> {}", userMyPage.getTotal());
+        log.info("当前页数 -------------> {}", userMyPage.getCurrent());
+        log.info("当前每页显示数 -------------> {}", userMyPage.getSize());
     }
 
     @Test

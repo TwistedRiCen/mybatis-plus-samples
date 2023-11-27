@@ -11,6 +11,7 @@
 - mybatis-plus-sample-reduce-springmvc: 简化掉默认mapper类示例（Spring MVC版本）
 - mybatis-plus-sample-generator: 代码生成器示例
 - mybatis-plus-sample-crud: 完整 CRUD 示例
+- mybatis-plus-sample-ddl-mysql: SQL 脚本自动维护 示例
 - mybatis-plus-sample-wrapper: 条件构造器示例
 - mybatis-plus-sample-pagination: 分页功能示例
 - mybatis-plus-sample-active-record: ActiveRecord示例
@@ -34,6 +35,7 @@
 - mybatis-plus-sample-no-spring: 不使用spring下的示例
 - mybatis-plus-sample-pagehelper: 使用pagehelper进行分页
 - mybatis-plus-sample-association: 联表查询示例
+- mybatis-plus-sample-jonb: 数据库 postgres 字段 jsonb 示例
 
 
 ![微信 wx153666](https://images.gitee.com/uploads/images/2021/0903/235825_2d017339_12260.jpeg)

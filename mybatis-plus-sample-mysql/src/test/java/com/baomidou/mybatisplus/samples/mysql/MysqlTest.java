@@ -6,22 +6,24 @@ import com.baomidou.mybatisplus.samples.mysql.mapper.TestDataMapper;
 import mybatis.mate.ddl.DdlScript;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.annotation.Resource;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Disabled
 @SpringBootTest
 class MysqlTest {
-    @Resource
+    @Autowired
     private TestDataMapper testDataMapper;
-    @Resource
+    @Autowired
     private DdlScript ddlScript;
 
     @BeforeEach

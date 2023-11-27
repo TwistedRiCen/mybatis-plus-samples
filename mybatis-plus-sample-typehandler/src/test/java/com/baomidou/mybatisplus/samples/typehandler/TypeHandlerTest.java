@@ -9,9 +9,9 @@ import com.baomidou.mybatisplus.samples.typehandler.entity.Wallet;
 import com.baomidou.mybatisplus.samples.typehandler.mapper.UserMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.annotation.Resource;
 import java.util.Arrays;
 
 /**
@@ -25,7 +25,7 @@ import java.util.Arrays;
 @SpringBootTest
 public class TypeHandlerTest {
 
-    @Resource
+    @Autowired
     private UserMapper userMapper;
 
     /**
@@ -49,6 +49,12 @@ public class TypeHandlerTest {
         wrapper.eq(User::getId, 2L);
         Assertions.assertEquals(userMapper.update(new User().setAge(99), wrapper), 1);
         System.err.println(userMapper.selectById(2));
+
+        // 演示 json 格式 Wrapper TypeHandler 查询
+        User h2User = userMapper.selectOne(Wrappers.<User>lambdaQuery()
+                .apply("name={0,typeHandler=" + UserNameJsonTypeHandler.class.getCanonicalName() + "}",
+                        "{\"id\":101,\"name\":\"Jack\"}"));
+        Assertions.assertNotNull(h2User);
 
         // 分页测试
         Page<User> userPage = userMapper.selectPage(new Page<>(1, 20), null);
